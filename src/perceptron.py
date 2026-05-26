@@ -10,16 +10,22 @@ class Perceptron:
         self.learning_rate = learning_rate
         self.epochs = epochs
 
-        w1, w2, bias = np.random.uniform(-1, 1),np.random.uniform(-1, 1), np.random.uniform(-1, 1)
+        w1, w2 = np.random.uniform(-1, 1),np.random.uniform(-1, 1)
 
         for i in range(epochs):
             for j in range(len(inputs)):
-                sigmoid = 1 / (1 + np.exp(- ((inputs[j][0] * w1) + (inputs[j][1] * w2) + bias)))
+                # baseado em https://prnt.sc/mCFqX_8X-A_o
 
-                w1 = w1 + (learning_rate * (outputs[j][0] - sigmoid) * inputs[j][0])
-                w2 = w2 + (learning_rate * (outputs[j][0] - sigmoid) * inputs[j][1])
-                bias = bias + (learning_rate * (outputs[j][0] - sigmoid))
-        return w1, w2, bias
+                z = (inputs[j][0] * w1) + (inputs[j][1] * w2)
+
+                ## função sigmoid: https://prnt.sc/mmf9Tp_kJK_e
+                sigmoid = 1 / (1 + np.exp(-z))
+
+                erro = outputs[j][0] - sigmoid
+
+                w1 = w1 + (learning_rate * erro * inputs[j][0])
+                w2 = w2 + (learning_rate * erro * inputs[j][1])
+        return w1, w2
     
     def predict(self, weights, x1, x2):
-        return 1 if 1 / (1 + np.exp(- ((x1 * weights[0]) + (x2 * weights[1]) + weights[2]))) > 0.5 else 0
+        return 1 if 1 / (1 + np.exp(-((x1 * weights[0]) + (x2 * weights[1])))) > 0.5 else 0
