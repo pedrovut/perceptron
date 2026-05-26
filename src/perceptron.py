@@ -23,9 +23,9 @@ class Perceptron:
 
                 erro = outputs[j][0] - sigmoid
 
-                w1 = w1 + (learning_rate * erro * inputs[j][0])
-                w2 = w2 + (learning_rate * erro * inputs[j][1])
-        return w1, w2
+                novo_w1 = w1 + (learning_rate * erro * inputs[j][0])
+                novo_w2 = w2 + (learning_rate * erro * inputs[j][1])
+        return novo_w1, novo_w2
     
     def predict(self, weights, x1, x2):
         return 1 if 1 / (1 + np.exp(-((x1 * weights[0]) + (x2 * weights[1])))) > 0.5 else 0
