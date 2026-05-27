@@ -1,8 +1,6 @@
 import numpy as np
 
 class Perceptron:
-    def __init__(self):
-        pass
 
     def train(self, inputs, outputs, learning_rate, epochs):
         self.inputs = inputs
