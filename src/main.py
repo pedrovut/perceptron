@@ -1,9 +1,9 @@
 from perceptron import Perceptron
 
-inputs = [ [0,0], [1,0], [0,1], [1,1] ]
-outputs = [[0], [0], [0], [1]]
+entradas = [ [0,0], [1,0], [0,1], [1,1] ]
+saidas = [[0], [0], [0], [1]]
 
 percp = Perceptron()
-pesos = percp.train(inputs, outputs, 0.1, 10000)
+pesos = percp.treinar(entradas, saidas, 0.01, 100)
 
-print(percp.predict(pesos, 1, 0))
+print(percp.prever(pesos, 1, 1))

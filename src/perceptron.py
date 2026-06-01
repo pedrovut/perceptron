@@ -1,32 +1,32 @@
 import numpy as np
 
 class Perceptron:
-    def __init__(self):
-        pass
+    def treinar(self, entradas, saidas, taxa_aprendizagem, epocas):
+        self.entradas = entradas
+        self.saidas = saidas
+        self.taxa_aprendizagem = taxa_aprendizagem
+        self.epocas = epocas
 
-    def train(self, inputs, outputs, learning_rate, epochs):
-        self.inputs = inputs
-        self.outputs = outputs
-        self.learning_rate = learning_rate
-        self.epochs = epochs
+        peso1, peso2 = np.random.uniform(-1, 1),np.random.uniform(-1, 1) # Define peso1 e peso2 como um número aleatório entre -1 e 1 (uniformemente)
 
-        w1, w2 = np.random.uniform(-1, 1),np.random.uniform(-1, 1)
+        for _ in range(epocas): # Percorre cada época
+            for j in range(len(entradas)): # Para cada coluna (j) em total(entrdas)
 
-        for i in range(epochs):
-            for j in range(len(inputs)):
-                # baseado em https://prnt.sc/mCFqX_8X-A_o
-                # https://prnt.sc/Plo3jNnYluwT
+                z = (entradas[j][0] * peso1) + (entradas[j][1] * peso2) # Soma das multiplicações
 
-                z = (inputs[j][0] * w1) + (inputs[j][1] * w2)
+                prev = 1 if z > 0.5 else 0 # Função de ativação (Step Function)
 
-                # step function
-                prev = 1 if z > 0.5 else 0
+                erro = saidas[j][0] - prev # Cálculo do erro: erro = saída_esperada - previsão
 
-                erro = outputs[j][0] - prev
+                peso1 = peso1 + (taxa_aprendizagem * erro * entradas[j][0]) # Novo peso 1
+                peso2 = peso2 + (taxa_aprendizagem * erro * entradas[j][1]) # Novo peso 2
 
-                w1 = w1 + (learning_rate * erro * inputs[j][0])
-                w2 = w2 + (learning_rate * erro * inputs[j][1])
-        return w1, w2
+                print(z) # Exibe uma nova "soma das multiplicações" (z) no console
+
+        return peso1, peso2 # Função treinar() retorna novos pesos
     
-    def predict(self, weights, x1, x2):
-        return 1 if ((x1 * weights[0]) + (x2 * weights[1])) > 0.5 else 0
+    def prever(self, pesos, entrada1, entrada2):
+        z =  (entrada1 * pesos[0]) + (entrada2 * pesos[1]) # 
+        prev = 1 if z > 0.5 else 0
+
+        return prev
